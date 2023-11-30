@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -12,9 +13,29 @@ class RegisterPage extends StatelessWidget {
         children: [
           _backgroundCover(context),
           _boxForm(context),
-          _imageUser()
+          _imageUser(),
+          _buttonBack()
         ],
       ),
+    );
+  }
+
+  /**
+   * Método que permitirá navegar hacia la pantalla principal de la aplicación.
+   */
+  Widget _buttonBack(){
+    return SafeArea(
+        child: Container(
+          margin: EdgeInsets.only(left: 10),
+          child: IconButton(
+            onPressed: () => Get.back(),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        )
     );
   }
 
