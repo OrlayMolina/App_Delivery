@@ -1,4 +1,4 @@
-# App_Delivery
+# Delivery_App
 Proyecto Flutter para la creación de una app delivery para Android y IOS
 
 <br>
