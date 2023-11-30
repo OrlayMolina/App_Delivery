@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
       width: double.infinity,
       /// Recibe por parámetro el contexto (tamaño de pantalla, entre otros) para realizar el cálculo a tráves de porcenje
       /// de cuánto debería ocupar el color amarillo de fondo.
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.42,
       color: Colors.amber,
     );
   }
@@ -58,10 +58,11 @@ class LoginPage extends StatelessWidget {
   Widget _boxForm(BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.33, left: 50, right: 50),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35, left: 50, right: 50),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: <BoxShadow>[
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black54,
             blurRadius: 15,
@@ -69,45 +70,84 @@ class LoginPage extends StatelessWidget {
           )
         ]
       ),
-      child: Column(
-        children: [
-          _textYourInfo(),
-          _textFieldEmail(),
-          _textFieldPassword()
-        ],
+      /// SingleChildScrollView arregla un problema de overflow o sobreposición en los textFileds.
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _textYourInfo(),
+            _textFieldEmail(),
+            _textFieldPassword(),
+            _buttonLogin()
+          ],
+        ),
       ),
     );
   }
 
   /// Campo Textfield para ingresar correo.
   Widget _textFieldEmail(){
-    return TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'Correo electrónico',
-        /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
-        prefixIcon: Icon(Icons.email)
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      child: TextField(
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          hintText: 'Correo electrónico',
+          /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
+          prefixIcon: Icon(Icons.email)
+        ),
       ),
     );
   }
 
   /// Campo Textfield para ingresar contraseña.
   Widget _textFieldPassword(){
-    return TextField(
-      keyboardType: TextInputType.text,
-      /// Propiedad que permite ocultar password.
-      obscureText: false,
-      decoration: InputDecoration(
-          hintText: 'Contraseña',
-          /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
-          prefixIcon: Icon(Icons.lock)
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+      child: TextField(
+        keyboardType: TextInputType.text,
+        /// Propiedad que permite ocultar password.
+        obscureText: true,
+        decoration: InputDecoration(
+            hintText: 'Contraseña',
+            /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
+            prefixIcon: Icon(Icons.lock)
+        ),
+      ),
+    );
+  }
+
+  /// Widget que muestra el botón de login.
+  Widget _buttonLogin(){
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+      child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(vertical: 15)
+          ),
+          child: Text(
+            'INICIAR SESIÓN',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          )
       ),
     );
   }
 
   /// Text auxiliar en la pantalla principal.
   Widget _textYourInfo(){
-    return Text('INGRESA ESTA INFORMACIÓN');
+    return Container(
+      margin: EdgeInsets.only(top: 40, bottom: 50),
+        child: Text(
+            'INGRESA ESTA INFORMACIÓN',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        )
+    );
   }
 
   /// Texto que consulta al usuario sí ya tiene cuenta creada en la aplicación.
@@ -121,7 +161,6 @@ class LoginPage extends StatelessWidget {
           '¿No tienes cuenta?',
           style: TextStyle(
               color: Colors.black,
-              fontWeight: FontWeight.bold,
               fontSize: 17
           ),
         ),
