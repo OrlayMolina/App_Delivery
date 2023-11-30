@@ -1,22 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
+class RegisterController extends GetxController{
 
   TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
-  void goToRegisterPage(){
-    Get.toNamed('/register');
-  }
-
-  void login(){
+  void register(){
     String email = emailController.text.trim();
+    String name = nameController.text.trim();
+    String lastname = lastnameController.text.trim();
+    String phone = phoneController.text.trim();
     String password = passwordController.text.trim();
+    String confirmPassword = confirmPasswordController.text.trim();
 
     print('Email ${email}');
     print('Password ${password}');
-    
+
     if(isValidForm(email, password)){
       Get.snackbar('Datos validos', 'Se puede enviar la petición POST para logear al usuario.');
     }
