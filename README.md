@@ -1,7 +1,13 @@
 # App_Delivery
 Proyecto Flutter para la creación de una app delivery para Android y IOS
 
-Diseños de la app de delivery...
+<br>
+<b> Diseños de la app.</b>
+
+<hr>
+
+![pantalla_inicial](https://github.com/OrlayMolina/App_Delivery/assets/111409267/2b50d22d-23b7-4d0c-8ebb-3049b005a6d8)
+
 
 <br>
 <b>Linkedin</b>
