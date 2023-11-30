@@ -11,9 +11,23 @@ class LoginPage extends StatelessWidget {
       body: Stack(
         /// Llamo el método que carga la imágen principal de la aplicación.
         children: [
-          _imageCover()
+          /// Utilizamos la 'etiqueta' Column para poder posicionar el nombre de nuestra aplicación por
+          /// debajo de la imágen de la app.
+          Column(
+            children: [
+              _imageCover(),
+              _textAppName()
+            ],
+          )
         ],
       ),
+    );
+  }
+
+  /// Método que monstrará el nombre de la aplicación.
+  Widget _textAppName(){
+    return const Text(
+        'DELIVERY MYSQL'
     );
   }
 
