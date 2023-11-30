@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery/src/pages/register/register_controller.dart';
 import 'package:get/get.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+
+  RegisterController controller = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +92,7 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
+        controller: controller.emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Correo electrónico',
@@ -107,6 +110,7 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
+        controller: controller.nameController,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
             hintText: 'Nombre',
@@ -122,6 +126,7 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
+        controller: controller.lastnameController,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
             hintText: 'Apellido',
@@ -137,6 +142,7 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
+        controller: controller.phoneController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
             hintText: 'Número Celular',
@@ -152,6 +158,7 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
       child: TextField(
+        controller: controller.passwordController,
         keyboardType: TextInputType.text,
         /// Propiedad que permite ocultar password.
         obscureText: true,
@@ -169,6 +176,7 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
       child: TextField(
+        controller: controller.confirmPasswordController,
         keyboardType: TextInputType.text,
         /// Propiedad que permite ocultar password.
         obscureText: true,
@@ -187,7 +195,7 @@ class RegisterPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () => controller.register(),
           style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 15)
           ),
