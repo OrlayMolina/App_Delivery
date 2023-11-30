@@ -17,6 +17,7 @@ class LoginPage extends StatelessWidget {
         /// Llamo el método que carga la imágen principal de la aplicación.
         children: [
           _backgroundCover(context),
+          _boxForm(context),
           /// Utilizamos la 'etiqueta' Column para poder posicionar el nombre de nuestra aplicación por
           /// debajo de la imágen de la app.
           Column(
@@ -45,12 +46,68 @@ class LoginPage extends StatelessWidget {
   /// Método que monstrará el nombre de la aplicación.
   Widget _textAppName(){
     return const Text(
-      'DELIVERY MYSQL',
+      'DELIVERY APP',
       style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Colors.black),
     );
+  }
+
+  /// Método que construye un componente frame en donde el usuario se logeará.
+  Widget _boxForm(BuildContext context){
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.45,
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.33, left: 50, right: 50),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black54,
+            blurRadius: 15,
+            offset: Offset(0, 0.75)
+          )
+        ]
+      ),
+      child: Column(
+        children: [
+          _textYourInfo(),
+          _textFieldEmail(),
+          _textFieldPassword()
+        ],
+      ),
+    );
+  }
+
+  /// Campo Textfield para ingresar correo.
+  Widget _textFieldEmail(){
+    return TextField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        hintText: 'Correo electrónico',
+        /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
+        prefixIcon: Icon(Icons.email)
+      ),
+    );
+  }
+
+  /// Campo Textfield para ingresar contraseña.
+  Widget _textFieldPassword(){
+    return TextField(
+      keyboardType: TextInputType.text,
+      /// Propiedad que permite ocultar password.
+      obscureText: false,
+      decoration: InputDecoration(
+          hintText: 'Contraseña',
+          /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
+          prefixIcon: Icon(Icons.lock)
+      ),
+    );
+  }
+
+  /// Text auxiliar en la pantalla principal.
+  Widget _textYourInfo(){
+    return Text('INGRESA ESTA INFORMACIÓN');
   }
 
   /// Texto que consulta al usuario sí ya tiene cuenta creada en la aplicación.
