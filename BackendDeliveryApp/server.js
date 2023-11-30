@@ -4,7 +4,16 @@ const http = require('http');
 const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
+const bodyparser = require('body-parser');
+
 require('dotenv').config();
+
+/**
+ * Middleware de análisis de cuerpos
+ */
+app.use(express.json()); // Analiza application/json
+app.use(express.urlencoded({ extended: true }));
+
 
 /**
  * Importar rutas
@@ -20,10 +29,6 @@ app.set('port', port);
 userRoutes(app);
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({
-    extended : true,
-}));
 
 app.use(cors());
 
