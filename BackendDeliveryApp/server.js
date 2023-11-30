@@ -4,9 +4,20 @@ const http = require('http');
 const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
+require('dotenv').config();
+
+/**
+ * Importar rutas
+ */
+const userRoutes = require('./routes/userRoutes');
 
 const port = process.env.PORT || 3000;
 app.set('port', port);
+
+/**
+ * 
+ */
+userRoutes(app);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -25,6 +36,10 @@ server.listen(3000, '192.168.1.3' || 'localhost', function(){
 
 app.get('/', (req, res) => {
     res.send('Ruta raíz del backend');
+});
+
+app.get('/test', (req, res) => {
+    res.send('Ruta de testeo');
 });
 
 // Error Handler
