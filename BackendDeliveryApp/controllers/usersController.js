@@ -23,16 +23,16 @@ module.exports = {
                 });
             }
 
-            if(myUser.length < 1){
+            if(!myUser){
                 return res.status(401).json({ /// No aurizado (401).
                     success : false,
                     message : 'El email no fue encontrado'
                 });
             }
 
-            const isPassswordValid = await bcrypt.compare(password, myUser.password);
+            const isPasswordValid = myUser.length > 0 ? await bcrypt.compare(password, myUser[0].password) : false;
 
-            if(isPassswordValid){
+            if(isPasswordValid){
                 const token = jwt.sign({id : myUser.id, email : myUser.email}, keys.secretOrKey,{});
 
                 const data = {
