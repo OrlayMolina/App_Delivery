@@ -30,7 +30,8 @@ module.exports = {
                 });
             }
 
-            const isPasswordValid = myUser.length > 0 ? await bcrypt.compare(password, myUser[0].password) : false;
+            const isPasswordValid = await bcrypt.compare(password, myUser.password);
+
 
             if(isPasswordValid){
                 const token = jwt.sign({id : myUser.id, email : myUser.email}, keys.secretOrKey,{});
@@ -44,6 +45,9 @@ module.exports = {
                     image: myUser.image,
                     session_token: `JWT ${token}`
                 }
+
+                console.log('info aquí ');
+                console.log(data);
 
                 return res.status(201).json({
                     success : true,

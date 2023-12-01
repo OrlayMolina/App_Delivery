@@ -56,8 +56,8 @@ User.findByEmail = (email, result) => {
                 console.log('Error: ', err);
                 result(err, null);
             } else {
-                console.log('Usuario obtenido: ', user);
-                result(null, user);
+                console.log('Usuario obtenido: ', user[0]);
+                result(null, user[0]);
             }
         }
     )
