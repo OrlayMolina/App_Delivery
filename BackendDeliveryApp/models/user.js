@@ -44,7 +44,7 @@ User.findByEmail = (email, result) => {
         password
     FROM
         users
-    WHRER
+    WHERE
         email = ?
     `;
 

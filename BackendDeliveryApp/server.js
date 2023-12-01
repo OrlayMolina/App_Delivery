@@ -5,6 +5,7 @@ const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
 const bodyparser = require('body-parser');
+const passport = require('passport');
 
 require('dotenv').config();
 
@@ -31,11 +32,15 @@ userRoutes(app);
 app.use(logger('dev'));
 
 app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 
 app.disable('x.powered-by');
 
 // Verificar la ip con ipconfig
-server.listen(3000, '192.168.1.3' || 'localhost', function(){
+server.listen(3000, '192.168.1.1' || 'localhost', function(){
     console.log( 'Aplicación de NodeJS en el puerto ' + port );
 });
 

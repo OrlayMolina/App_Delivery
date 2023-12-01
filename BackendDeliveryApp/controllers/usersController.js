@@ -1,4 +1,7 @@
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 module.exports = {
 
@@ -7,7 +10,10 @@ module.exports = {
         const email = req.body.email;
         const password = req.body.password;
 
-        User.findByEmail(email, (err, data) => {
+        User.findByEmail(email, async (err, myUser) => {
+
+            console.log('Error ', err);
+            console.log('Usuario ', myUser);
 
             if(err){
                 return res.status(501).json({
@@ -17,18 +23,40 @@ module.exports = {
                 });
             }
 
-            if(!data){
+            if(myUser.length < 1){
                 return res.status(401).json({ /// No aurizado (401).
                     success : false,
                     message : 'El email no fue encontrado'
                 });
             }
 
-            return res.status(201).json({
-                success : true,
-                message : 'El registro se encontró correctamente',
-                data : data // El ID del nuevo usuario que se registró.
-            });
+            const isPassswordValid = await bcrypt.compare(password, myUser.password);
+
+            if(isPassswordValid){
+                const token = jwt.sign({id : myUser.id, email : myUser.email}, keys.secretOrKey,{});
+
+                const data = {
+                    id: myUser.id,
+                    name: myUser.name,
+                    lastname: myUser.lastname,
+                    email: myUser.email,
+                    phone: myUser.phone,
+                    image: myUser.image,
+                    session_token: `JWT ${token}`
+                }
+
+                return res.status(201).json({
+                    success : true,
+                    message : 'El usuario fue autenticado correctamente',
+                    data : data // El ID del nuevo usuario que se registró.
+                });
+            }else {
+                return res.status(401).json({ /// No aurizado (401).
+                    success : false,
+                    message : 'La contraseña es incorrecta'
+                });
+            }
+
         });
     },
 
