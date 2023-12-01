@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_delivery/src/models/user.dart';
+import 'package:flutter_delivery/src/providers/users_provider.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController{
@@ -10,7 +12,9 @@ class RegisterController extends GetxController{
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
-  void register(){
+  UsersProvider usersProvider = UsersProvider();
+
+  void register() async{
     String email = emailController.text.trim();
     String name = nameController.text;
     String lastname = lastnameController.text;
@@ -20,8 +24,30 @@ class RegisterController extends GetxController{
 
     print('Email ${email}');
     print('Password ${password}');
+    print('name ${name}');
+    print('lastname ${lastname}');
+    print('phone ${phone}');
+    print('confirmPassword ${confirmPassword}');
 
     if(isValidForm(email, name, lastname, phone, password, confirmPassword)){
+      print(email);
+      print(name);
+      print(lastname);
+      print(phone);
+      print(password);
+      print(confirmPassword);
+      User user = User(
+        email: email,
+        name: name,
+        lastname: lastname,
+        phone: phone,
+        password: password
+      );
+
+      Response response = await usersProvider.create(user);
+
+      print('RESPONSE: ${response.body}');
+
       Get.snackbar('Datos validos', 'Se puede enviar la petición POST para logear al usuario.');
     }
   }

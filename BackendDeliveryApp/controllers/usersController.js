@@ -6,7 +6,7 @@ module.exports = {
 
         // Capturó lo datos que me envie el cliente.
         const user = req.body;
-        console.log(req.body);
+        console.log(user);
         User.create(user, (err, data) => {///
 
             if(err){
