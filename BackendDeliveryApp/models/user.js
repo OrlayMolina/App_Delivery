@@ -10,7 +10,19 @@ User.create = (user, result) => {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [email, name, lastname, phone, image, password, new Date(), new Date()], (err, res) => {
+    db.query(
+        sql, 
+        [
+            email, 
+            name, 
+            lastname, 
+            phone, 
+            image, 
+            password, 
+            new Date(), 
+            new Date()
+        ], 
+        (err, res) => {
         if (err) {
             console.log('Error: ', err);
             result(err, null);
