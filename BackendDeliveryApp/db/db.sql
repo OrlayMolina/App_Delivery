@@ -13,3 +13,6 @@ CREATE TABLE users(
 );
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+DELETE FROM `udemy_delivery`.`users` WHERE (`id` = '1');
+DELETE FROM `udemy_delivery`.`users` WHERE (`id` = '2');
