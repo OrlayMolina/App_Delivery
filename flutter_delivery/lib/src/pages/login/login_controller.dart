@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_delivery/src/models/response_api.dart';
+import 'package:flutter_delivery/src/providers/users_provider.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -6,19 +8,28 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  UsersProvider usersProvider = UsersProvider();
+
   void goToRegisterPage(){
     Get.toNamed('/register');
   }
 
-  void login(){
+  void login() async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
-
-    print('Email ${email}');
-    print('Password ${password}');
     
     if(isValidForm(email, password)){
-      Get.snackbar('Datos validos', 'Se puede enviar la petición POST para logear al usuario.');
+
+      ResponseApi responseApi = await usersProvider.login(email, password);
+
+      print('Response Api: ${responseApi.toJson()}');
+
+      if(responseApi.success == true){
+        /// En caso de que el message sea null imprimimos ''.
+        Get.snackbar('Login exitoso', responseApi.message ?? '');
+      }else{
+        Get.snackbar('Login exitoso', responseApi.message ?? '');
+      }
     }
   }
 
