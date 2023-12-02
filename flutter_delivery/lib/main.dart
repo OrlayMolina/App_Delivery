@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery/src/models/user.dart';
+import 'package:flutter_delivery/src/pages/home/home_page.dart';
 import 'package:flutter_delivery/src/pages/login/login_page.dart';
 import 'package:flutter_delivery/src/pages/register/register_page.dart';
-import 'package:get/get.dart'; /// Paquete que nos permite usar todas las funcionalidades de Getx
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+User userSession = User.fromJson(GetStorage().read('user') ?? {});
+
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -30,12 +36,13 @@ class _MyAppState extends State<MyApp> {
       title: 'Delivery App',
       /// No mostrará la marca de 'debug' en la aplicación.
       debugShowCheckedModeBanner: false,
-      /// Routa principal de la aplicación.
-      initialRoute: '/',
+      /// Routa principal de la aplicación, sí el id de la session es null ira a la ruta principal de lo contrario al home.
+      initialRoute: userSession.id != null ? '/home' : '/',
       /// Páginas de la aplicación
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),
-        GetPage(name: '/register', page: () => RegisterPage())
+        GetPage(name: '/register', page: () => RegisterPage()),
+        GetPage(name: '/home', page: () => HomePage())
       ],
       theme: ThemeData(
         primaryColor: Colors.amber,

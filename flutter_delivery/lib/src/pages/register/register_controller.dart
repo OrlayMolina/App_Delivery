@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_delivery/src/models/user.dart';
 import 'package:flutter_delivery/src/providers/users_provider.dart';
 import 'package:get/get.dart';
@@ -101,5 +102,44 @@ class RegisterController extends GetxController{
     }
 
     return true;
+  }
+
+  void showAlertDialog(BuildContext context){
+    Widget galleryButton = ElevatedButton(
+        onPressed: () {},
+        child: Text(
+          'GALERIA',
+          style: TextStyle(
+            color: Colors.black
+          ),
+        )
+    );
+
+    Widget cameraButton = ElevatedButton(
+        onPressed: () {},
+        child: Text(
+            'CÁMARA',
+          style: TextStyle(
+            color: Colors.black
+          ),
+        )
+    );
+
+    AlertDialog alertDialog = AlertDialog(
+      title: Text(
+        'Selecciona una opción',
+        style: TextStyle(
+          color: Colors.black
+        ),
+      ),
+      actions: [
+        galleryButton,
+        cameraButton
+      ],
+    );
+
+    showDialog(context: context, builder: (BuildContext context){
+      return alertDialog;
+    });
   }
 }
