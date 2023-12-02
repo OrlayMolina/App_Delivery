@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery/src/models/user.dart';
 import 'package:flutter_delivery/src/providers/users_provider.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterController extends GetxController{
 
@@ -14,6 +16,9 @@ class RegisterController extends GetxController{
   TextEditingController confirmPasswordController = TextEditingController();
 
   UsersProvider usersProvider = UsersProvider();
+
+  ImagePicker picker = ImagePicker();
+  File? imageFile;
 
   void register() async{
     String email = emailController.text.trim();
@@ -104,9 +109,20 @@ class RegisterController extends GetxController{
     return true;
   }
 
+  Future selectImage(ImageSource imageSource) async {
+    XFile? image = await picker.pickImage(source: imageSource);
+    if(image != null){
+      imageFile = File(image.path);
+      update();
+    }
+  }
+
   void showAlertDialog(BuildContext context){
     Widget galleryButton = ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.back();
+          selectImage(ImageSource.gallery);
+        },
         child: Text(
           'GALERIA',
           style: TextStyle(
@@ -116,7 +132,10 @@ class RegisterController extends GetxController{
     );
 
     Widget cameraButton = ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.back();
+          selectImage(ImageSource.camera);
+        },
         child: Text(
             'CÁMARA',
           style: TextStyle(

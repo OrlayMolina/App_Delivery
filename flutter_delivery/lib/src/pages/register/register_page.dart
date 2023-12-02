@@ -216,11 +216,15 @@ class RegisterPage extends StatelessWidget {
         alignment: Alignment.topCenter,
         child: GestureDetector(
           onTap: () => controller.showAlertDialog(context),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/img/user_profile.png'),
-            radius: 60,
-            backgroundColor: Colors.white,
-          ),
+          child: GetBuilder<RegisterController> (
+            builder: (value) => CircleAvatar(
+              /// NULL SAFETY
+              backgroundImage: controller.imageFile != null ? FileImage(controller.imageFile!) :
+              AssetImage('assets/img/user_profile.png') as ImageProvider,
+              radius: 60,
+              backgroundColor: Colors.white,
+            ),
+          )
         ),
       ),
     );
