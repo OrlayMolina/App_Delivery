@@ -2,7 +2,7 @@
 Proyecto Flutter para la creación de una app delivery para Android y IOS
 
 <br>
-<b> DISEÑOS DE LA APP.</b>
+<b> DISEÑOS DE LA APP</b>
 
 <hr>
 
