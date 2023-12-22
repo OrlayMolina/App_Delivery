@@ -17,10 +17,13 @@ class RolesPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: controller.user.roles != null ? controller.user.roles!.map((Rol rol) {
-          return Text(rol.name ?? '');
-        }).toList() : [],
+      body: Container(
+        margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.17),
+        child: ListView(
+          children: controller.user.roles != null ? controller.user.roles!.map((Rol rol) {
+            return _cardRol(rol);
+          }).toList() : [],
+        ),
       ),
     );
   }
@@ -29,12 +32,20 @@ class RolesPage extends StatelessWidget {
     return Column(
       children: [
         Container(
+          margin: EdgeInsets.only(bottom: 15),
           height: 100,
           child: FadeInImage(
             image: NetworkImage(rol.image!),
             fit: BoxFit.contain,
             fadeInDuration: Duration(milliseconds: 50),
-            placeholder: AssetImage(''),
+            placeholder: AssetImage('assets/img/no-image.png'),
+          ),
+        ),
+        Text(
+          rol.name ?? '',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black
           ),
         )
       ],
