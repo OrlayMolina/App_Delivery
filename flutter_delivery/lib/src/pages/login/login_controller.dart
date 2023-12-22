@@ -4,6 +4,8 @@ import 'package:flutter_delivery/src/providers/users_provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../models/user.dart';
+
 class LoginController extends GetxController {
 
   TextEditingController emailController = TextEditingController();
@@ -28,16 +30,24 @@ class LoginController extends GetxController {
       if(responseApi.success == true){
         /// Almacenamos los datos del usuario.
         GetStorage().write('user', responseApi.data);
-        ///goToHomePage();
-        goToRolesPage();
+        User myUser = User.fromJson(GetStorage().read('user') ?? {});
+
+        print('Roles length: ${myUser.roles!.length}');
+
+        if(myUser.roles!.length > 1){
+          goToRolesPage();
+        }else {
+          goToClientProductsPage();
+        }
+
       }else{
         Get.snackbar('Login incorrecto', responseApi.message ?? '');
       }
     }
   }
 
-  void goToHomePage(){
-    Get.offNamedUntil('/home', (route) => false);
+  void goToClientProductsPage(){
+    Get.offNamedUntil('/client/products/list', (route) => false);
   }
 
   void goToRolesPage(){

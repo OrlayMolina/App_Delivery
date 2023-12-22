@@ -8,6 +8,24 @@ class ClientProductsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Client Products List'),
+            ElevatedButton(
+              onPressed: () => controller.signOut(),
+              child: Text(
+                'Cerrar Sesión',
+                style: TextStyle(
+                    color: Colors.black
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

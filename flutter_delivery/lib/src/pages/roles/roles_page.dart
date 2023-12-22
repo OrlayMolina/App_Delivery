@@ -11,7 +11,7 @@ class RolesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'Seleccionar el rol',
+            'Selecciona el rol',
           style: TextStyle(
             color: Colors.black
           ),
@@ -29,26 +29,29 @@ class RolesPage extends StatelessWidget {
   }
 
   Widget _cardRol(Rol rol) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 15),
-          height: 100,
-          child: FadeInImage(
-            image: NetworkImage(rol.image!),
-            fit: BoxFit.contain,
-            fadeInDuration: Duration(milliseconds: 50),
-            placeholder: AssetImage('assets/img/no-image.png'),
+    return GestureDetector(
+      onTap: () => controller.goToPageRol(rol),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 15),
+            height: 100,
+            child: FadeInImage(
+              image: NetworkImage(rol.image!),
+              fit: BoxFit.contain,
+              fadeInDuration: Duration(milliseconds: 50),
+              placeholder: AssetImage('assets/img/no-image.png'),
+            ),
           ),
-        ),
-        Text(
-          rol.name ?? '',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black
-          ),
-        )
-      ],
+          Text(
+            rol.name ?? '',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black
+            ),
+          )
+        ],
+      ),
     );
   }
 }
