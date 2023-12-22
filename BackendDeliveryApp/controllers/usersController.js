@@ -115,8 +115,10 @@ module.exports = {
                 });
             }
 
-            user.id = data;
-
+            user.id = `${data}`;
+            const token = jwt.sign({id: user.id, email: user.email}, keys.secretOrKey,{});
+            user.session_token = `JWT ${token}`;
+            
             return res.status(201).json({
                 success : true,
                 message : 'El registro se realizó correctamente',
