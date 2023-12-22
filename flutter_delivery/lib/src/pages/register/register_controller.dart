@@ -30,10 +30,6 @@ class RegisterController extends GetxController{
 
     print('Email ${email}');
     print('Password ${password}');
-    print('name ${name}');
-    print('lastname ${lastname}');
-    print('phone ${phone}');
-    print('confirmPassword ${confirmPassword}');
 
     if(isValidForm(email, name, lastname, phone, password, confirmPassword)){
       print(email);
@@ -50,11 +46,7 @@ class RegisterController extends GetxController{
         password: password
       );
 
-      Response response = await usersProvider.create(user);
-
-      print('RESPONSE: ${response.body}');
-
-      Get.snackbar('Datos validos', 'Se puede enviar la petición POST para logear al usuario.');
+      Stream stream = await usersProvider.createWithImage(user, imageFile!);
     }
   }
 
@@ -103,6 +95,11 @@ class RegisterController extends GetxController{
 
     if(confirmPassword != password){
       Get.snackbar('Formulario no valido','Las contraseñas deben ser iguales.');
+      return false;
+    }
+
+    if(imageFile == null){
+      Get.snackbar('Formulario no valido','Debes seleccionar una imágen.');
       return false;
     }
 
