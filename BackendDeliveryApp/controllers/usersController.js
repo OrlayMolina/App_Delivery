@@ -2,6 +2,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
+const storage = require('../utils/cloud_storage');
 
 module.exports = {
 
@@ -83,6 +84,43 @@ module.exports = {
                 success : true,
                 message : 'El registro se realizó correctamente',
                 data : data // El ID del nuevo usuario que se registró.
+            });
+        });
+    },
+
+    async registerWithImage(req, res){
+
+        // Capturó lo datos que me envie el cliente.
+        const user = JSON.parse(req.body.user);
+
+        // Archivos que se subieron al servidor.
+        const files = req.files;
+
+        if(files.length > 0){
+            const path = `image_${Date.now()}`;
+            const url = await storage(files[0], path);
+
+            if(url != undefined || url != null){
+                user.image = url;
+            }
+        }
+
+        User.create(user, (err, data) => {
+
+            if(err){
+                return res.status(501).json({
+                    success : false,
+                    message : 'Hubo un error con el registro del usuario',
+                    error : err
+                });
+            }
+
+            user.id = data;
+
+            return res.status(201).json({
+                success : true,
+                message : 'El registro se realizó correctamente',
+                data : user // El ID del nuevo usuario que se registró.
             });
         });
     }

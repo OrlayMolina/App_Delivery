@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const bodyparser = require('body-parser');
 const passport = require('passport');
+const multer = require('multer');
 
 require('dotenv').config();
 
@@ -24,10 +25,14 @@ const userRoutes = require('./routes/userRoutes');
 const port = process.env.PORT || 3000;
 app.set('port', port);
 
+const upload = multer({
+    storage: multer.memoryStorage()
+});
+
 /**
- * 
+ * LLAMADO DE RUTAS
  */
-userRoutes(app);
+userRoutes(app, upload);
 
 app.use(logger('dev'));
 
