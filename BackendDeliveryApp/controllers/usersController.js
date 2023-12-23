@@ -139,5 +139,65 @@ module.exports = {
             });
             
         });
+    },
+
+    async updateWithImage(req, res){
+
+        // Capturó lo datos que me envie el cliente.
+        const user = JSON.parse(req.body.user);
+
+        // Archivos que se subieron al servidor.
+        const files = req.files;
+
+        if(files.length > 0){
+            const path = `image_${Date.now()}`;
+            const url = await storage(files[0], path);
+
+            if(url != undefined || url != null){
+                user.image = url;
+            }
+        }
+
+        User.update(user, (err, data) => {
+
+            if(err){
+                return res.status(501).json({
+                    success : false,
+                    message : 'Hubo un error al actualizar el usuario',
+                    error : err
+                });
+            }
+
+            return res.status(201).json({
+                success : true,
+                message : 'El usuario se actualizó correctamente',
+                data : user // El ID del nuevo usuario que se registró.
+            });
+            
+        });
+    },
+
+    async updateWithoutImage(req, res){
+
+        // Capturó lo datos que me envie el cliente.
+        const user = req.body;
+
+        User.updateWithoutImage(user, (err, data) => {
+
+            if(err){
+                return res.status(501).json({
+                    success : false,
+                    message : 'Hubo un error al actualizar el usuario',
+                    error : err
+                });
+            }
+
+            return res.status(201).json({
+                success : true,
+                message : 'El usuario se actualizó correctamente',
+                data : user // El ID del nuevo usuario que se registró.
+            });
+            
+        });
     }
 }
