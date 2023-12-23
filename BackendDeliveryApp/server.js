@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
  */
 const userRoutes = require('./routes/userRoutes');
 const categoriesRoutes = require('./routes/categoryRoutes');
+const productsRoutes = require('./routes/productRoutes');
 
 const port = process.env.PORT || 3000;
 app.set('port', port);
@@ -35,6 +36,7 @@ const upload = multer({
  */
 userRoutes(app, upload);
 categoriesRoutes(app);
+productsRoutes(app, upload);
 
 app.use(logger('dev'));
 
