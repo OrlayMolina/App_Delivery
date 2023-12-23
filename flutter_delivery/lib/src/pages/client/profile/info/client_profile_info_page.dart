@@ -15,7 +15,8 @@ class ClientProfileInfoPage extends StatelessWidget {
         children: [
           _backgroundCover(context),
           _boxForm(context),
-          _imageUser(context)
+          _imageUser(context),
+          _buttonSignOut()
         ],
       ),
     );
@@ -63,13 +64,30 @@ class ClientProfileInfoPage extends StatelessWidget {
     );
   }
 
+  Widget _buttonSignOut(){
+    return SafeArea(
+        child: Container(
+          margin: EdgeInsets.only(right: 10),
+          alignment: Alignment.topRight,
+          child: IconButton(
+            onPressed: () => controller.signOut(),
+            icon: Icon(
+              Icons.power_settings_new,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        )
+    );
+  }
+
   /// Widget que muestra el botón de login.
   Widget _buttonUpdate(BuildContext context){
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
       child: ElevatedButton(
-          onPressed: (){},
+          onPressed: () => controller.goToProfileUpdate(),
           style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 15)
           ),
