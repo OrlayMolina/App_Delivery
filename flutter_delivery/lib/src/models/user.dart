@@ -12,6 +12,7 @@ class User {
   String? name;
   String? lastname;
   String? phone;
+  String? image;
   String? password;
   String? sessionToken;
   List<Rol>? roles = [];
@@ -22,6 +23,7 @@ class User {
     this.name,
     this.lastname,
     this.phone,
+    this.image,
     this.password,
     this.sessionToken,
     this.roles
@@ -33,6 +35,7 @@ class User {
     name: json["name"],
     lastname: json["lastname"],
     phone: json["phone"],
+    image: json["image"],
     password: json["password"],
     sessionToken: json["session_token"],
     roles: (json["roles"] == null
@@ -48,6 +51,7 @@ class User {
     "name": name,
     "lastname": lastname,
     "phone": phone,
+    "image": image,
     "password": password,
     "session_token": sessionToken,
     "roles": roles
