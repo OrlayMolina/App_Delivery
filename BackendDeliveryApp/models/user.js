@@ -6,7 +6,7 @@ const User = {};
 User.findById = (id, result) => {
     const sql = `
     SELECT
-        U.id,
+        CONVERT(U.id, char) AS id,
         U.email,
         U.name, 
         U.lastname, 
@@ -32,7 +32,7 @@ User.findById = (id, result) => {
     ON
         UHR.id_rol = R.id
     WHERE
-        id = ?
+        U.id = ?
     GROUP BY
         U.id
     `;
@@ -81,7 +81,7 @@ User.findByEmail = (email, result) => {
     ON
         UHR.id_rol = R.id
     WHERE
-        email = ?
+        U.email = ?
     GROUP BY
         U.id
     `;
@@ -164,7 +164,7 @@ User.update = (user, result) => {
             result(err, null);
         } else {
             console.log('Usuario actualizado: ', user.id);
-            result(null, true);
+            result(null, user.id);
         }
     });
 }
@@ -197,7 +197,7 @@ User.updateWithoutImage = (user, result) => {
             result(err, null);
         } else {
             console.log('Usuario actualizado: ', user.id);
-            result(null, true);
+            result(null, user.id);
         }
     });
 }

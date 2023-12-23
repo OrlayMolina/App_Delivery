@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_delivery/src/models/user.dart';
 import 'package:flutter_delivery/src/models/response_api.dart';
 import 'package:flutter_delivery/src/providers/users_provider.dart';
+import 'package:flutter_delivery/src/pages/client/profile/info/client_profile_info_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -21,6 +22,9 @@ class ClientProfileUpdateController extends GetxController {
   File? imageFile;
 
   UsersProvider usersProvider = UsersProvider();
+
+  /// Accedemos a todos los métodos y atributos que tiene este controller
+  ClientProfileInfoController clientProfileInfoController = Get.find();
 
   ClientProfileUpdateController() {
     nameController.text = user.name ?? '';
@@ -44,18 +48,17 @@ class ClientProfileUpdateController extends GetxController {
         name: name,
         lastname: lastname,
         phone: phone,
+        sessionToken: user.sessionToken
       );
 
       if(imageFile == null){
         ResponseApi responseApi = await usersProvider.update(myUser);
+        print('Response Api Update: ${responseApi.data}');
         Get.snackbar('Se actualizó el usuario correctamente', responseApi.message ?? '');
         progressDialog.close();
         if(responseApi.success == true){
-          user.name = name;
-          user.lastname = lastname;
-          user.phone = phone;
-          GetStorage().write('user', user);
-          print('Response Api Update: ${responseApi.data}');
+          GetStorage().write('user', responseApi.data);
+          clientProfileInfoController.user.value = User.fromJson(responseApi.data);
         }
       }else {
         Stream stream = await usersProvider.updateWithImage(myUser, imageFile!);
@@ -67,11 +70,8 @@ class ClientProfileUpdateController extends GetxController {
           print('Response Api Update: ${responseApi.data}');
 
           if(responseApi.success == true){
-            user.name = name;
-            user.lastname = lastname;
-            user.phone = phone;
-            user.image = responseApi.data['image'];
-            GetStorage().write('user', user);
+            GetStorage().write('user', responseApi.data);
+            clientProfileInfoController.user.value = User.fromJson(responseApi.data);
           }else {
             Get.snackbar('Registro fallido', responseApi.message ?? '');
           }

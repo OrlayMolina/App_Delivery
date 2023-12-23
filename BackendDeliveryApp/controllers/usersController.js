@@ -168,10 +168,24 @@ module.exports = {
                 });
             }
 
-            return res.status(201).json({
-                success : true,
-                message : 'El usuario se actualizó correctamente',
-                data : user // El ID del nuevo usuario que se registró.
+            User.findById(data, (err, myData) => {
+
+                if(err){
+                    return res.status(501).json({
+                        success : false,
+                        message : 'Hubo un error al actualizar el usuario',
+                        error : err
+                    });
+                }
+
+                myData.session_token = user.session_token;
+                myData.roles = JSON.parse(myData.roles);
+    
+                return res.status(201).json({
+                    success : true,
+                    message : 'El usuario se actualizó correctamente',
+                    data : myData // El ID del nuevo usuario que se registró.
+                });
             });
             
         });
@@ -192,10 +206,24 @@ module.exports = {
                 });
             }
 
-            return res.status(201).json({
-                success : true,
-                message : 'El usuario se actualizó correctamente',
-                data : user // El ID del nuevo usuario que se registró.
+            User.findById(data, (err, myData) => {
+
+                if(err){
+                    return res.status(501).json({
+                        success : false,
+                        message : 'Hubo un error al actualizar el usuario',
+                        error : err
+                    });
+                }
+
+                myData.session_token = user.session_token;
+                myData.roles = JSON.parse(myData.roles);
+    
+                return res.status(201).json({
+                    success : true,
+                    message : 'El usuario se actualizó correctamente',
+                    data : myData // El ID del nuevo usuario que se registró.
+                });
             });
             
         });

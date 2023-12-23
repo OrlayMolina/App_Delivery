@@ -10,7 +10,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     /// Scaffold es la maquetación de nuestra aplicación.
     return Scaffold(
-      body: Stack(
+      body: Obx(() =>Stack(
         /// Llamo el método que carga la imágen principal de la aplicación.
         children: [
           _backgroundCover(context),
@@ -18,7 +18,7 @@ class ClientProfileInfoPage extends StatelessWidget {
           _imageUser(context),
           _buttonSignOut()
         ],
-      ),
+      )),
     );
   }
 
@@ -108,8 +108,8 @@ class ClientProfileInfoPage extends StatelessWidget {
         alignment: Alignment.topCenter,
         child:CircleAvatar(
           /// NULL SAFETY
-          backgroundImage: controller.user.image != null
-              ? NetworkImage(controller.user.image!)
+          backgroundImage: controller.user.value.image != null
+              ? NetworkImage(controller.user.value.image!)
               : AssetImage('assets/img/user_profile.png') as ImageProvider,
           radius: 60,
           backgroundColor: Colors.white,
@@ -128,7 +128,7 @@ class ClientProfileInfoPage extends StatelessWidget {
         leading: Icon(
             Icons.person
         ),
-        title: Text('${controller.user.name ?? ''} ${controller.user.lastname ?? ''}'),
+        title: Text('${controller.user.value.name ?? ''} ${controller.user.value.lastname ?? ''}'),
         subtitle: Text('Nombre del usuario'),
       ),
     );
@@ -140,7 +140,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _textEmail(){
     return ListTile(
       leading: Icon(Icons.email),
-      title: Text(controller.user.email ?? ''),
+      title: Text(controller.user.value.email ?? ''),
       subtitle: Text('Email'),
     );
   }
@@ -151,7 +151,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _textPhone(){
     return ListTile(
       leading: Icon(Icons.phone),
-      title: Text(controller.user.phone ?? ''),
+      title: Text(controller.user.value.phone ?? ''),
       subtitle: Text('Teléfono'),
     );
   }

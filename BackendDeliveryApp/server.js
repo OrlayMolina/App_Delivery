@@ -45,7 +45,7 @@ require('./config/passport')(passport);
 app.disable('x.powered-by');
 
 // Verificar la ip con ipconfig
-server.listen(3000, '192.168.1.3' || 'localhost', function(){
+server.listen(3000, '192.168.1.1' || 'localhost', function(){
     console.log( 'Aplicación de NodeJS en el puerto ' + port );
 });
 
