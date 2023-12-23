@@ -31,7 +31,7 @@ INSERT INTO roles(
 )
 VALUES(
 	'RESTAURANTE',
-    'restaurant/orders/list',
+    '/restaurant/orders/list',
     '2023-12-22',
     '2023-12-22'
 );
@@ -44,7 +44,7 @@ INSERT INTO roles(
 )
 VALUES(
 	'REPARTIDOR',
-    'delivery/orders/list',
+    '/delivery/orders/list',
     '2023-12-22',
     '2023-12-22'
 );
@@ -57,7 +57,7 @@ INSERT INTO roles(
 )
 VALUES(
 	'CLIENTE',
-    'client/products/list',
+    '/client/products/list',
     '2023-12-22',
     '2023-12-22'
 );
@@ -70,4 +70,12 @@ CREATE TABLE user_has_roles(
     FOREIGN KEY(id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(id_rol) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY(id_user, id_rol)
+);
+
+CREATE TABLE categories(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(180) NOT NULL,
+    description TEXT NOT NULL,
+    created_at TIMESTAMP(0) NOT NULL,
+    updated_at TIMESTAMP(0) NOT NULL
 );

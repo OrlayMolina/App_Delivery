@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
  * Importar rutas
  */
 const userRoutes = require('./routes/userRoutes');
+const categoriesRoutes = require('./routes/categoryRoutes');
 
 const port = process.env.PORT || 3000;
 app.set('port', port);
@@ -33,6 +34,7 @@ const upload = multer({
  * LLAMADO DE RUTAS
  */
 userRoutes(app, upload);
+categoriesRoutes(app);
 
 app.use(logger('dev'));
 
