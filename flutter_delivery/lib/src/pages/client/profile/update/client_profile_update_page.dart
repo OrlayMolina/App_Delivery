@@ -140,7 +140,7 @@ class ClientProfileUpdatePage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () => controller.updateInfo(context),
           style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 15)
           ),
@@ -164,8 +164,11 @@ class ClientProfileUpdatePage extends StatelessWidget {
             child: GetBuilder<ClientProfileUpdateController> (
               builder: (value) => CircleAvatar(
                 /// NULL SAFETY
-                backgroundImage: controller.imageFile != null ? FileImage(controller.imageFile!) :
-                AssetImage('assets/img/user_profile.png') as ImageProvider,
+                backgroundImage: controller.imageFile != null
+                    ? FileImage(controller.imageFile!)
+                    : controller.user.image != null
+                      ? NetworkImage(controller.user.image!)
+                      : AssetImage('assets/img/user_profile.png') as ImageProvider,
                 radius: 60,
                 backgroundColor: Colors.white,
               ),
