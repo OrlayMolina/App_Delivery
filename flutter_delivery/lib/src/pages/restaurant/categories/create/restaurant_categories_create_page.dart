@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery/src/pages/restaurant/categories/create/restaurante_categories_create_controller.dart';
+import 'package:get/get.dart';
 
 class RestaurantCategoriesCreatePage extends StatelessWidget {
+
+  RestaurantCategoriesCreateController controller = Get.put(RestaurantCategoriesCreateController());
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,7 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
             _textYourInfo(),
             _textFieldName(),
             _textFieldDescription(),
-            _buttonUpdate(context)
+            _buttonCreate(context)
           ],
         ),
       ),
@@ -66,8 +70,9 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
-        ///controller: controller.nameController,
+        controller: controller.nameController,
         keyboardType: TextInputType.text,
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
             hintText: 'Nombre',
             /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
@@ -82,9 +87,10 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
       child: TextField(
-        ///controller: controller.lastnameController,
+        controller: controller.descriptionController,
         keyboardType: TextInputType.text,
         maxLines: 4,
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
             hintText: 'Descripción',
             /// Propiedad Icon nos habilita una galeria completa de imagenes que podemos utilizar en nuestros componentes.
@@ -98,12 +104,14 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
   }
 
   /// Widget que muestra el botón de login.
-  Widget _buttonUpdate(BuildContext context){
+  Widget _buttonCreate(BuildContext context){
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 2),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            controller.createCategory();
+          },
           style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 15)
           ),
