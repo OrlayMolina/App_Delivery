@@ -59,13 +59,24 @@ class RestaurantProductsCreatePage extends StatelessWidget {
             _textFieldName(),
             _textFieldDescription(),
             _textFieldPrice(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _cardImage(context, controller.imageFile1, 1),
-                _cardImage(context, controller.imageFile2, 2),
-                _cardImage(context, controller.imageFile3, 3),
-              ],
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GetBuilder<RestaurantProductsCreateController>(
+                      builder: (value) => _cardImage(context, controller.imageFile1, 1),
+                  ),
+                  SizedBox(width: 5),
+                  GetBuilder<RestaurantProductsCreateController>(
+                    builder: (value) => _cardImage(context, controller.imageFile2, 2),
+                  ),
+                  SizedBox(width: 5),
+                  GetBuilder<RestaurantProductsCreateController>(
+                    builder: (value) => _cardImage(context, controller.imageFile3, 3),
+                  ),
+                ],
+              ),
             ),
             _buttonCreate(context)
           ],
@@ -75,19 +86,21 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   }
 
   Widget _cardImage(BuildContext context, File? imageFile, int numberFile){
-    return GestureDetector(
-      onTap: (){},
-      child: Card(
-        elevation: 3,
-        child: Container(
-          color: Colors.white,
-          height: 80,
-          width: MediaQuery.of(context).size.width * 0.2,
-          child: Image(
-            image: AssetImage('assets/img/cover_image.png'),
-          ),
-        ),
-      ),
+    return GetBuilder<RestaurantProductsCreateController> (
+        builder: (value) => GestureDetector(
+          onTap: () => controller.showAlertDialog(context, numberFile),
+          child: Container(
+            height: 68,
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width * 0.16,
+            child: imageFile != null
+                ? Image.file(
+              imageFile,
+              fit: BoxFit.cover,
+            )
+                : Image(image: AssetImage('assets/img/cover_image.png')),
+          )
+        )
     );
   }
 
@@ -154,7 +167,7 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   Widget _buttonCreate(BuildContext context){
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 2),
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 45),
       child: ElevatedButton(
           onPressed: () {
             controller.createCategory();

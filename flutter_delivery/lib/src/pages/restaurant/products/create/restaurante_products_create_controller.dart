@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_delivery/src/models/category.dart';
 import 'package:flutter_delivery/src/models/response_api.dart';
 import 'package:flutter_delivery/src/providers/categories_provider.dart';
@@ -38,6 +39,69 @@ class RestaurantProductsCreateController extends GetxController {
     }else {
       Get.snackbar('Formulario invalido', 'Ingresa todos los campos para crear la categoria');
     }
+  }
+
+  Future selectImage(ImageSource imageSource, int numberFile) async {
+    XFile? image = await picker.pickImage(source: imageSource);
+    if(image != null){
+
+      if(numberFile == 1){
+        imageFile1 = File(image.path);
+      }
+      else if(numberFile == 2){
+        imageFile2 = File(image.path);
+      }
+      else if(numberFile == 3){
+        imageFile3 = File(image.path);
+      }
+
+      update();
+    }
+  }
+
+  void showAlertDialog(BuildContext context, int numberFile){
+    Widget galleryButton = ElevatedButton(
+        onPressed: () {
+          Get.back();
+          selectImage(ImageSource.gallery, numberFile);
+        },
+        child: Text(
+          'GALERIA',
+          style: TextStyle(
+              color: Colors.black
+          ),
+        )
+    );
+
+    Widget cameraButton = ElevatedButton(
+        onPressed: () {
+          Get.back();
+          selectImage(ImageSource.camera, numberFile);
+        },
+        child: Text(
+          'CÁMARA',
+          style: TextStyle(
+              color: Colors.black
+          ),
+        )
+    );
+
+    AlertDialog alertDialog = AlertDialog(
+      title: Text(
+        'Selecciona una opción',
+        style: TextStyle(
+            color: Colors.black
+        ),
+      ),
+      actions: [
+        galleryButton,
+        cameraButton
+      ],
+    );
+
+    showDialog(context: context, builder: (BuildContext context){
+      return alertDialog;
+    });
   }
 
   void clearForm(){
