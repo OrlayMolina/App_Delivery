@@ -19,6 +19,19 @@ class RestaurantProductsCreateController extends GetxController {
   File? imageFile2;
   File? imageFile3;
 
+  String? idCategory;
+  List<Category> categories = <Category>[].obs;
+
+  RestaurantProductsCreateController(){
+    getCategories();
+  }
+
+  void getCategories() async {
+    var result = await categoriesProvider.getAll();
+    categories.clear();
+    categories.addAll(result);
+  }
+
   void createCategory() async {
     String name = nameController.text;
     String description = descriptionController.text;

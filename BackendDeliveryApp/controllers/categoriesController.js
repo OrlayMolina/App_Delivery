@@ -22,5 +22,20 @@ module.exports = {
                 data : `${id}` // El ID de la nueva categoria.
             });
         });
+    },
+
+    getAll(req, res) {
+        Category.getAll((err, data) => {
+
+            if(err){
+                return res.status(501).json({
+                    success : false,
+                    message : 'Hubo un error al listar las categorias',
+                    error : err
+                });
+            }
+
+            return res.status(201).json(data);
+        });
     }
 };

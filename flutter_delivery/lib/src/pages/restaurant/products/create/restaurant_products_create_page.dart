@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery/src/models/category.dart';
 import 'package:flutter_delivery/src/pages/restaurant/products/create/restaurante_products_create_controller.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,7 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// Scaffold es la maquetación de nuestra aplicación.
-    return Scaffold(
+    return Obx(() => Scaffold(
       body: Stack(
         /// Llamo el método que carga la imágen principal de la aplicación.
         children: [
@@ -19,7 +20,7 @@ class RestaurantProductsCreatePage extends StatelessWidget {
           _boxForm(context),
           _textNewCategory(context)
         ],
-      ),
+      )),
     );
   }
 
@@ -59,8 +60,8 @@ class RestaurantProductsCreatePage extends StatelessWidget {
             _textFieldName(),
             _textFieldDescription(),
             _textFieldPrice(),
+            _dropDownCategories(controller.categories),
             Container(
-              margin: EdgeInsets.only(top: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -83,6 +84,49 @@ class RestaurantProductsCreatePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _dropDownCategories(List<Category> categories) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      margin: EdgeInsets.only(top: 15),
+      child: DropdownButton(
+        underline: Container(
+          alignment: Alignment.centerRight,
+          child: Icon(
+            Icons.arrow_drop_down_circle,
+            color: Colors.amber,
+          ),
+        ),
+        elevation: 3,
+        isExpanded: true,
+        hint: Text(
+          'Seleccione una categoria',
+          style: TextStyle(
+            fontSize: 17
+          ),
+        ),
+        items: _dropDownItems(categories),
+        value: controller.idCategory,
+        onChanged: (option) {
+          print('Opcion seleccionada ${option}');
+          controller.idCategory = option.toString();
+        },
+      ),
+    );
+  }
+
+  /// Método que consulta las categorias obtenidas para posteriormente poder ser mostradas en pantalla.
+  List<DropdownMenuItem<String?>> _dropDownItems(List<Category> categories){
+    List<DropdownMenuItem<String>> list = [];
+    categories.forEach((category) {
+      list.add(DropdownMenuItem(
+        child: Text(category.name ?? ''),
+        value: category.id,
+      ));
+    });
+
+    return list;
   }
 
   Widget _cardImage(BuildContext context, File? imageFile, int numberFile){
@@ -169,16 +213,16 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   Widget _buttonCreate(BuildContext context){
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 45),
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
       child: ElevatedButton(
           onPressed: () {
             controller.createCategory();
           },
           style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 15)
+              padding: EdgeInsets.symmetric(vertical: 1)
           ),
           child: Text(
-            'CREAR CATEGORIA',
+            'CREAR PRODUCTO',
             style: TextStyle(
               color: Colors.black,
             ),
@@ -190,7 +234,7 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   Widget _textNewCategory(BuildContext context){
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: 37),
         alignment: Alignment.topCenter,
         child: Text(
           'NUEVO PRODUCTO',
