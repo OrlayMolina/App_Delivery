@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class ClientProfileInfoPage extends StatelessWidget {
 
-  ClientProfileInfoController controller = Get.put(ClientProfileInfoController());
+  final ClientProfileInfoController controller = Get.put(ClientProfileInfoController());
 
   @override
   Widget build(BuildContext context) {

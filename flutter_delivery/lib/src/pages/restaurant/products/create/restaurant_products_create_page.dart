@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery/src/pages/restaurant/products/create/restaurante_products_create_controller.dart';
 import 'package:get/get.dart';
@@ -57,8 +59,33 @@ class RestaurantProductsCreatePage extends StatelessWidget {
             _textFieldName(),
             _textFieldDescription(),
             _textFieldPrice(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _cardImage(context, controller.imageFile1, 1),
+                _cardImage(context, controller.imageFile2, 2),
+                _cardImage(context, controller.imageFile3, 3),
+              ],
+            ),
             _buttonCreate(context)
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _cardImage(BuildContext context, File? imageFile, int numberFile){
+    return GestureDetector(
+      onTap: (){},
+      child: Card(
+        elevation: 3,
+        child: Container(
+          color: Colors.white,
+          height: 80,
+          width: MediaQuery.of(context).size.width * 0.2,
+          child: Image(
+            image: AssetImage('assets/img/cover_image.png'),
+          ),
         ),
       ),
     );
@@ -148,20 +175,16 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   Widget _textNewCategory(BuildContext context){
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.only(top: 15),
+        margin: EdgeInsets.only(top: 25),
         alignment: Alignment.topCenter,
-        child: Column(
-          children: [
-            Text(
-                'NUEVO PRODUCTO',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Colors.black
-              ),
-            ),
-          ],
-        )
+        child: Text(
+          'NUEVO PRODUCTO',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              color: Colors.black
+          ),
+        ),
       ),
     );
   }

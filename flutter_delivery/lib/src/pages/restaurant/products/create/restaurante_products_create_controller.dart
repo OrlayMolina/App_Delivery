@@ -3,6 +3,8 @@ import 'package:flutter_delivery/src/models/category.dart';
 import 'package:flutter_delivery/src/models/response_api.dart';
 import 'package:flutter_delivery/src/providers/categories_provider.dart';
 import 'package:get/get.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class RestaurantProductsCreateController extends GetxController {
 
@@ -10,6 +12,11 @@ class RestaurantProductsCreateController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   CategoriesProvider categoriesProvider = CategoriesProvider();
+
+  ImagePicker picker = ImagePicker();
+  File? imageFile1;
+  File? imageFile2;
+  File? imageFile3;
 
   void createCategory() async {
     String name = nameController.text;

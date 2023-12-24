@@ -9,7 +9,6 @@ import 'package:flutter_delivery/src/pages/home/home_page.dart';
 import 'package:flutter_delivery/src/pages/login/login_page.dart';
 import 'package:flutter_delivery/src/pages/register/register_page.dart';
 import 'package:flutter_delivery/src/pages/restaurant/home/restaurant_home_page.dart';
-import 'package:flutter_delivery/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:flutter_delivery/src/pages/roles/roles_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -33,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    print('El token de sessión del usuario ${userSession.sessionToken}');
+    //print('El token de sessión del usuario ${userSession.sessionToken}');
   }
 
   /// Método build encargado de construir las vistas de la aplicación.
@@ -62,7 +61,7 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: ThemeData(
         primaryColor: Colors.amber,
-        colorScheme: ColorScheme(
+        colorScheme: const ColorScheme(
             primary: Colors.amber,
             secondary: Colors.amberAccent,
             onSecondary: Colors.grey,
