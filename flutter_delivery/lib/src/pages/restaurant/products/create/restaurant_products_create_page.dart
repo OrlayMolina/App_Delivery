@@ -86,10 +86,12 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   }
 
   Widget _cardImage(BuildContext context, File? imageFile, int numberFile){
-    return GetBuilder<RestaurantProductsCreateController> (
-        builder: (value) => GestureDetector(
-          onTap: () => controller.showAlertDialog(context, numberFile),
+    return GestureDetector(
+        onTap: () => controller.showAlertDialog(context, numberFile),
+        child: Card(
+          elevation: 3,
           child: Container(
+            padding: EdgeInsets.all(4),
             height: 68,
             color: Colors.white,
             width: MediaQuery.of(context).size.width * 0.16,
@@ -99,7 +101,7 @@ class RestaurantProductsCreatePage extends StatelessWidget {
               fit: BoxFit.cover,
             )
                 : Image(image: AssetImage('assets/img/cover_image.png')),
-          )
+          ),
         )
     );
   }
