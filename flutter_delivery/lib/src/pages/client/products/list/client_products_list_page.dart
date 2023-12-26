@@ -7,6 +7,7 @@ import 'package:flutter_delivery/src/pages/delivery/orders/list/delivery_orders_
 import 'package:flutter_delivery/src/pages/register/register_page.dart';
 import 'package:flutter_delivery/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:flutter_delivery/src/utils/custom_animated_bottom_bar.dart';
+import 'package:flutter_delivery/src/widgets/no_data_widget.dart';
 import 'package:get/get.dart';
 
 class ClientProductsListPage extends StatelessWidget {
@@ -41,14 +42,20 @@ class ClientProductsListPage extends StatelessWidget {
                 future: controller.getProducts(category.id ?? '1'),
                 builder: (context, AsyncSnapshot<List<Product>> snapshot){
                   if(snapshot.hasData){
-                    return ListView.builder(
-                      itemCount: snapshot.data?.length ?? 0,
-                      itemBuilder: (_,index){
-                        return _cardProduct(snapshot.data![index]);
-                      },
-                    );
+
+                    if(snapshot.data!.length > 0){
+                      return ListView.builder(
+                        itemCount: snapshot.data?.length ?? 0,
+                        itemBuilder: (_,index){
+                          return _cardProduct(snapshot.data![index]);
+                        },
+                      );
+                    }else {
+                      return NoDataWidget(text: 'No hay productos');
+                    }
+
                   }else {
-                    return Container();
+                    return NoDataWidget(text: 'No hay productos');
                   }
                 }
             );
