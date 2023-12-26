@@ -24,7 +24,7 @@ class RestaurantProductsCreateController extends GetxController {
   File? imageFile2;
   File? imageFile3;
 
-  String? idCategory;
+  var idCategory = ''.obs;
   List<Category> categories = <Category>[].obs;
   ProductsProvider productsProvider = ProductsProvider();
 
@@ -53,7 +53,7 @@ class RestaurantProductsCreateController extends GetxController {
         name: name,
         description: description,
         price: double.parse(price),
-        idCategory: idCategory
+        idCategory: idCategory.value
       );
 
       progressDialog.show(max: 100, msg: 'Guardando producto...');
@@ -67,7 +67,10 @@ class RestaurantProductsCreateController extends GetxController {
 
         ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
         Get.snackbar('Proceso terminado', responseApi.message ?? '');
-        clearForm();
+        if(responseApi.success == true){
+          clearForm();
+        }
+
       });
     }
   }
@@ -87,7 +90,7 @@ class RestaurantProductsCreateController extends GetxController {
       Get.snackbar('Formulario no valido', 'Ingresa el precio del producto');
       return false;
     }
-    if(idCategory == null){
+    if(idCategory.value == ''){
       Get.snackbar('Formulario no valido', 'Debes seleccionar la gategoria del producto');
       return false;
     }
@@ -174,5 +177,10 @@ class RestaurantProductsCreateController extends GetxController {
     nameController.text = '';
     descriptionController.text = '';
     priceController.text = '';
+    imageFile1 = null;
+    imageFile2 = null;
+    imageFile3 = null;
+    idCategory.value = '';
+    update();
   }
 }

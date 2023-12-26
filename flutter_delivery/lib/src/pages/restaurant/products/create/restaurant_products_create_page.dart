@@ -107,10 +107,10 @@ class RestaurantProductsCreatePage extends StatelessWidget {
           ),
         ),
         items: _dropDownItems(categories),
-        value: controller.idCategory,
+        value: controller.idCategory.value == '' ? null : controller.idCategory.value,
         onChanged: (option) {
           print('Opcion seleccionada ${option}');
-          controller.idCategory = option.toString();
+          controller.idCategory.value = option.toString();
         },
       ),
     );
