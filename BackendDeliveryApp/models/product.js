@@ -10,14 +10,14 @@ Product.create = (product, result) => {
             name, 
             description, 
             price, 
-            imagen1, 
-            imagen2, 
-            imagen3, 
+            image1, 
+            image2, 
+            image3, 
             id_category, 
             created_at, 
             updated_at
         )
-    VALUES(?, ?, ?, ?,?, ?, ?, ?, ?)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(
@@ -26,9 +26,9 @@ Product.create = (product, result) => {
             product.name,
             product.description,
             product.price,
-            product.imagen1,
-            product.imagen2,
-            product.imagen3,
+            product.image1,
+            product.image2,
+            product.image3,
             product.id_category,
             new Date(),
             new Date()
@@ -54,9 +54,9 @@ Product.update = (product, result) => {
         name = ?,
         description = ?,
         price = ?,
-        imagen1 = ?,
-        imagen2 = ?,
-        imagen3 = ?,
+        image1 = ?,
+        image2 = ?,
+        image3 = ?,
         id_category = ?,
         updated_at = ?
     WHERE
@@ -69,9 +69,9 @@ Product.update = (product, result) => {
             product.name,
             product.description,
             product.price,
-            product.imagen1,
-            product.imagen2,
-            product.imagen3,
+            product.image1,
+            product.image2,
+            product.image3,
             product.id_category,
             new Date(),
             product.id
