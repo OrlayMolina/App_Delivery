@@ -5,14 +5,14 @@ const Product = {};
 Product.findByCategory = (id_category, result) => {
     const sql = `
     SELECT
-        P.id,
+        CONVERT(P.id, char) AS id,
         P.name,
         P.description,
         P.price,
         P.image1,
         P.image2,
         P.image3,
-        P.id_category
+        CONVERT(P.id_category, char) AS id_category
     FROM
         products AS P
     WHERE
