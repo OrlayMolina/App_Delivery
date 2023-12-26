@@ -42,11 +42,11 @@ module.exports = {
                         if(url != undefined || url != null){// Se creo l imagen en Firebase
 
                             if(inserts === 0){// imagen 1
-                                product.imagen1 = url;
+                                product.image1 = url;
                             }else if (inserts === 1){// imagen 2
-                                product.imagen2 = url;
+                                product.image2 = url;
                             }else if (inserts === 2){// imagen 3
-                                product.imagen3 = url;
+                                product.image3 = url;
                             }
                         }
 

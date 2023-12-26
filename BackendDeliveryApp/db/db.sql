@@ -90,6 +90,6 @@ CREATE TABLE products(
     image3 VARCHAR(255) NOT NULL,
     id_category BIGINT NOT NULL,
     created_at TIMESTAMP(0) NOT NULL,
-    update_at TIMESTAMP(0) NOT NULL,
+    updated_at TIMESTAMP(0) NOT NULL,
     FOREIGN KEY(id_category) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
