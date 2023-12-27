@@ -7,12 +7,15 @@ import 'package:get/get.dart';
 class ClientProductsDetailPage extends StatelessWidget {
 
   Product? product;
-  ClientProductsDetailController controller = Get.put(ClientProductsDetailController());
-  ClientProductsDetailPage({@required this.product});
+  late ClientProductsDetailController controller;
+
+  ClientProductsDetailPage({@required this.product}){
+    controller = Get.put(ClientProductsDetailController(product!));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() =>Scaffold(
       bottomNavigationBar:
       Container(height: 100,
           child: _buttonAddToBag()
@@ -25,7 +28,7 @@ class ClientProductsDetailPage extends StatelessWidget {
           _textPriceProduct()
         ],
       ),
-    );
+    ));
   }
 
   Widget _textNameProduct() {
@@ -66,7 +69,7 @@ class ClientProductsDetailPage extends StatelessWidget {
           child: Row(
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => controller.removeItem(),
                 child: Text(
                   '-',
                   style: TextStyle(
@@ -76,6 +79,7 @@ class ClientProductsDetailPage extends StatelessWidget {
                 ),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
+                    minimumSize: Size(20, 37),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(25),
@@ -87,7 +91,7 @@ class ClientProductsDetailPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 child: Text(
-                  '0',
+                  '${controller.counter.value}',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 16
@@ -99,7 +103,7 @@ class ClientProductsDetailPage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => controller.addItem(),
                 child: Text(
                   '+',
                   style: TextStyle(
@@ -109,6 +113,7 @@ class ClientProductsDetailPage extends StatelessWidget {
                 ),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
+                    minimumSize: Size(20, 37),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(25),
@@ -121,7 +126,7 @@ class ClientProductsDetailPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 child: Text(
-                  'Agregar ${product?.price ?? ''}',
+                  'Agregar ${controller.price.value}',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 13
@@ -157,42 +162,39 @@ class ClientProductsDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _imageSlideshow(BuildContext context){
-    return SafeArea(
-        child: Stack(
-          children: [
-            ImageSlideshow(
-              width: double.infinity,
-                height: MediaQuery.of(context).size.height *0.40,
-                initialPage: 0,
-                indicatorColor: Colors.amber,
-                indicatorBackgroundColor: Colors.grey,
-                children: [
-                  FadeInImage(
-                    fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png'),
-                      image: product!.image1 != null
-                          ? NetworkImage(product!.image1!) : AssetImage('assets/img/no-image.png') as ImageProvider
-                  ),
-                  FadeInImage(
-                      fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png'),
-                      image: product!.image2 != null
-                          ? NetworkImage(product!.image2!) : AssetImage('assets/img/no-image.png') as ImageProvider
-                  ),
-                  FadeInImage(
-                      fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png'),
-                      image: product!.image3 != null
-                          ? NetworkImage(product!.image3!) : AssetImage('assets/img/no-image.png') as ImageProvider
-                  ),
-                ]
-            )
-          ],
-        )
+  Widget _imageSlideshow(BuildContext context) {
+    return ImageSlideshow(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.4,
+        initialPage: 0,
+        indicatorColor: Colors.amber,
+        indicatorBackgroundColor: Colors.grey,
+        children: [
+          FadeInImage(
+              fit: BoxFit.cover,
+              fadeInDuration: Duration(milliseconds: 50),
+              placeholder: AssetImage('assets/img/no-image.png'),
+              image: product!.image1 != null
+                  ? NetworkImage(product!.image1!)
+                  : AssetImage('assets/img/no-image.png') as ImageProvider
+          ),
+          FadeInImage(
+              fit: BoxFit.cover,
+              fadeInDuration: Duration(milliseconds: 50),
+              placeholder: AssetImage('assets/img/no-image.png'),
+              image: product!.image2 != null
+                  ? NetworkImage(product!.image2!)
+                  : AssetImage('assets/img/no-image.png') as ImageProvider
+          ),
+          FadeInImage(
+              fit: BoxFit.cover,
+              fadeInDuration: Duration(milliseconds: 50),
+              placeholder: AssetImage('assets/img/no-image.png'),
+              image: product!.image3 != null
+                  ? NetworkImage(product!.image3!)
+                  : AssetImage('assets/img/no-image.png') as ImageProvider
+          ),
+        ]
     );
   }
 }
