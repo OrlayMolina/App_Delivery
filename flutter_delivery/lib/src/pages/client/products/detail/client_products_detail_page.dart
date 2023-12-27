@@ -48,7 +48,7 @@ class ClientProductsDetailPage extends StatelessWidget {
 
   Widget _textDescriptionProduct(){
     return Container(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       margin: EdgeInsets.only(top: 15, left: 30, right: 30),
       child: Text(
         product?.description ?? '',
@@ -124,7 +124,7 @@ class ClientProductsDetailPage extends StatelessWidget {
               ),
               Spacer(),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => controller.addToBag(),
                 child: Text(
                   'Agregar ${controller.price.value}',
                   style: TextStyle(
