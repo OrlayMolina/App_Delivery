@@ -57,4 +57,8 @@ class ClientOrdersCreateController extends GetxController {
       getTotal();
     }
   }
+
+  void goToAddressList() {
+    Get.toNamed('/client/address/list');
+  }
 }

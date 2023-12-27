@@ -58,12 +58,12 @@ class ClientOrdersCreatePage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 30),
 
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => controller.goToAddressList(),
                     style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(15)
                     ),
                     child: Text(
-                      'CONFIRMAR ORDER',
+                      'CONFIRMAR ORDEN',
                       style: TextStyle(
                           color: Colors.black
                       ),
