@@ -97,7 +97,7 @@ class ClientAddressMapPage extends StatelessWidget {
   Widget _googleMaps() {
     return GoogleMap(
       initialCameraPosition: controller.initialPosition,
-      mapType: MapType.hybrid,
+      mapType: MapType.normal,
       onMapCreated: controller.onMapCreate,
       myLocationButtonEnabled: false,
       myLocationEnabled: false,
