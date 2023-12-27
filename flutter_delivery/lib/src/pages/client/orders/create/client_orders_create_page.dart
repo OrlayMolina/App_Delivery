@@ -47,7 +47,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'TOTAL: \$0.0',
+                'TOTAL: \$${controller.total.value}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -113,7 +113,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
 
   Widget _iconDelete(Product product) {
     return IconButton(
-        onPressed: () {},
+        onPressed: () => controller.deleteItem(product),
         icon: Icon(
           Icons.delete,
           color: Colors.red,
@@ -149,13 +149,13 @@ class ClientOrdersCreatePage extends StatelessWidget {
                 )
             ),
 
-            child: Text('-'),
+            child: Text('-', style: TextStyle(color: Colors.black, fontSize: 18)),
           ),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
           color: Colors.grey[300],
-          child: Text('${product.quantity ?? 0}'),
+          child: Text('${product.quantity ?? 0}', style: TextStyle(color: Colors.black, fontSize: 18)),
         ),
         GestureDetector(
           onTap: () => controller.addItem(product),
@@ -168,7 +168,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
                   bottomRight: Radius.circular(8),
                 )
             ),
-            child: Text('+'),
+            child: Text('+', style: TextStyle(color: Colors.black, fontSize: 18)),
           ),
         ),
       ],
