@@ -73,12 +73,16 @@ class ClientProductsListPage extends StatelessWidget {
 
   Widget _iconShoppingBag() {
     return SafeArea(
-      child: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.shopping_bag_outlined,
-            color: Colors.black,
-          )
+      child: Container(
+        margin: EdgeInsets.only(left: 10),
+        child: IconButton(
+            onPressed: () => controller.goToOrderCreate(),
+            icon: Icon(
+              Icons.shopping_bag_outlined,
+              color: Colors.black,
+              size: 30,
+            )
+        ),
       ),
     );
   }
