@@ -7,14 +7,17 @@ import 'package:get/get.dart';
 class ClientProductsDetailPage extends StatelessWidget {
 
   Product? product;
+  var counter = 0.obs;
+  var price = 0.0.obs;
   late ClientProductsDetailController controller;
 
   ClientProductsDetailPage({@required this.product}){
-    controller = Get.put(ClientProductsDetailController(product!));
+    controller = Get.put(ClientProductsDetailController());
   }
 
   @override
   Widget build(BuildContext context) {
+    controller.checkIfProductWasAdded(product!, price, counter);
     return Obx(() =>Scaffold(
       bottomNavigationBar:
       Container(height: 100,
@@ -69,7 +72,7 @@ class ClientProductsDetailPage extends StatelessWidget {
           child: Row(
             children: [
               ElevatedButton(
-                onPressed: () => controller.removeItem(),
+                onPressed: () => controller.removeItem(product!, price, counter),
                 child: Text(
                   '-',
                   style: TextStyle(
@@ -91,7 +94,7 @@ class ClientProductsDetailPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 child: Text(
-                  '${controller.counter.value}',
+                  '${counter.value}',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 16
@@ -103,7 +106,7 @@ class ClientProductsDetailPage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => controller.addItem(),
+                onPressed: () => controller.addItem(product!, price, counter),
                 child: Text(
                   '+',
                   style: TextStyle(
@@ -124,9 +127,9 @@ class ClientProductsDetailPage extends StatelessWidget {
               ),
               Spacer(),
               ElevatedButton(
-                onPressed: () => controller.addToBag(),
+                onPressed: () => controller.addToBag(product!, price, counter),
                 child: Text(
-                  'Agregar ${controller.price.value}',
+                  'Agregar ${price.value}',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 13

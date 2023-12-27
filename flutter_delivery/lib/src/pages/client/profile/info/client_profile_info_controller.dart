@@ -14,4 +14,9 @@ class ClientProfileInfoController extends GetxController {
   void goToProfileUpdate(){
     Get.offNamed('/client/profile/update');
   }
+
+  void goToRoles(){
+    ///Eliminar historial de pantallas.
+    Get.offNamedUntil('/roles', (route) => false);
+  }
 }
