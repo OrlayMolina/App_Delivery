@@ -10,7 +10,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() => Scaffold(
         bottomNavigationBar: Container(
           color: Color.fromRGBO(245, 245, 245, 1),
           height: 100,
@@ -34,7 +34,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
         }).toList(),
       )
           : NoDataWidget(text: 'No hay ningún producto agregado aún')
-    );
+    ));
   }
 
   Widget _totalToPay(BuildContext context) {
@@ -138,7 +138,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () => controller.removeItem(product),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
             decoration: BoxDecoration(
@@ -158,7 +158,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
           child: Text('${product.quantity ?? 0}'),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () => controller.addItem(product),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
             decoration: BoxDecoration(
